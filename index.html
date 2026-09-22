@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viboreando — Chismes & Anécdotas Anónimas</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            viper: {
+              green: '#10B981',
+              neon: '#22C55E',
+              lime: '#84CC16',
+              purple: '#A855F7',
+              darkPurple: '#581C87',
+              dark: '#050B0A',
+              card: '#0F1A17',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Trama geométrica de escamas de serpiente en SVG de fondo */
+    body {
+      background-color: #060B09;
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(34, 197, 94, 0.22) 0%, transparent 65%),
+        radial-gradient(ellipse at 80% 100%, rgba(168, 85, 247, 0.18) 0%, transparent 60%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66ZM28 100L0 84L0 66L28 82L56 66L56 84L28 100Z' fill='none' stroke='%2310b981' stroke-opacity='0.08' stroke-width='1.5'/%3E%3Cpath d='M28 32L0 16L28 0L56 16L28 32Z' fill='%2322c55e' fill-opacity='0.02'/%3E%3C/svg%3E");
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    /* Tarjeta tipo Glassmorphism con resplandor serpentino */
+    .glass-card {
+      background: rgba(12, 22, 19, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(34, 197, 94, 0.22);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(34, 197, 94, 0.08);
+    }
+
+    .glass-input {
+      background: rgba(5, 12, 10, 0.75);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      color: #F0FDF4;
+      transition: all 0.25s ease;
+    }
+
+    .glass-input:focus {
+      background: rgba(5, 12, 10, 0.98);
+      border-color: #22C55E;
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.3), 0 0 0 2px rgba(34, 197, 94, 0.2);
+      outline: none;
+    }
+
+    /* Brillos Neón */
+    .neon-text-green {
+      text-shadow: 0 0 10px rgba(34, 197, 94, 0.6), 0 0 20px rgba(34, 197, 94, 0.3);
+    }
+
+    .neon-glow-icon {
+      filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.6)) drop-shadow(0 0 20px rgba(168, 85, 247, 0.4));
+    }
+
+    .btn-viper {
+      background: linear-gradient(135deg, #16a34a 0%, #059669 50%, #9333ea 100%);
+      background-size: 200% auto;
+      transition: all 0.4s ease;
+    }
+
+    .btn-viper:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.5), 0 0 20px rgba(168, 85, 247, 0.4);
+    }
+
+    /* Personalización del área de texto scroll */
+    textarea::-webkit-scrollbar {
+      width: 6px;
+    }
+    textarea::-webkit-scrollbar-track {
+      background: rgba(5, 12, 10, 0.8);
+      border-radius: 4px;
+    }
+    textarea::-webkit-scrollbar-thumb {
+      background: rgba(34, 197, 94, 0.4);
+      border-radius: 4px;
+    }
+    textarea::-webkit-scrollbar-thumb:hover {
+      background: rgba(34, 197, 94, 0.8);
+    }
+
+    /* Animación flotante suave */
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(2deg); }
+    }
+    .float-anim {
+      animation: gentleFloat 4.5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="text-slate-100 font-sans flex flex-col justify-between p-4 sm:p-6 md:p-8 min-h-screen">
+
+  <main class="max-w-xl w-full mx-auto my-auto py-4">
+    
+    <!-- Header con Logo Vectorial SVG de Serpiente en 'S' -->
+    <div class="text-center mb-6">
+      
+      <div class="inline-block mb-3 float-anim">
+        <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto flex items-center justify-center p-3 rounded-3xl bg-slate-900/80 border border-emerald-500/30 neon-glow-icon backdrop-blur-lg">
+          <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="viperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#22C55E" />
+                <stop offset="50%" stop-color="#10B981" />
+                <stop offset="100%" stop-color="#A855F7" />
+              </linearGradient>
+            </defs>
+            <!-- Cuerpo Serpentino S -->
+            <path d="M 60 15 C 35 15 25 32 38 48 C 50 62 75 58 82 72 C 90 88 75 105 52 105 C 38 105 28 98 22 88" 
+                  stroke="url(#viperGradient)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+            <!-- Ojo Carmesí -->
+            <circle cx="68" cy="22" r="3.5" fill="#EF4444" />
+            <!-- Lengua Bífida Neón -->
+            <path d="M 72 17 L 84 12 M 84 12 L 92 8 M 84 12 L 91 17" 
+                  stroke="#F43F5E" stroke-width="3" stroke-linecap="round" />
+          </svg>
+        </div>
+      </div>
+
+      <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-white mb-1">
+        VIBOREANDO<span class="text-emerald-400 font-extrabold neon-text-green">.</span>
+      </h1>
+      <p class="text-xs sm:text-sm font-semibold tracking-widest uppercase text-emerald-400/90 mb-3">
+        🐍 Nexo Anónimo de Chismes, Veneno & Mates ermatados 🧉
+      </p>
+
+      <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        100% Anónimo — Sin registros de contacto ni IP
+      </span>
+    </div>
+
+    <!-- Formulario Principal Glassmorphism -->
+    <div class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+      
+      <!-- Luces ambientales de fondo -->
+      <div class="absolute -top-12 -right-12 w-40 h-40 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <form id="viberForm" class="space-y-5 relative z-10">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <!-- Campo: Alias u Opción Anónima -->
+          <div>
+            <label for="alias" class="block text-xs font-bold text-emerald-300 uppercase tracking-wider mb-1.5">
+              Apodo / Seudónimo <span class="text-slate-500 font-normal">(Opcional)</span>
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-500">
+                <i class="fa-solid fa-staff-snake text-sm"></i>
+              </div>
+              <input 
+                type="text" 
+                id="alias" 
+                name="alias" 
+                placeholder="Ej: La Cobra del 3ºB"
+                maxLength="35"
+                class="glass-input w-full pl-10 pr-4 py-2.5 rounded-xl text-sm placeholder:text-slate-500 focus:outline-none"
+              >
+            </div>
+          </div>
+
+          <!-- Campo: Categorías / Tipo de Veneno -->
+          <div>
+            <label for="categoria" class="block text-xs font-bold text-emerald-300 uppercase tracking-wider mb-1.5">
+              Tipo de Veneno
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-500">
+                <i class="fa-solid fa-vial-circle-check text-sm"></i>
+              </div>
+              <select 
+                id="categoria" 
+                name="categoria"
+                class="glass-input w-full pl-10 pr-8 py-2.5 rounded-xl text-sm text-emerald-100 focus:outline-none appearance-none cursor-pointer"
+              >
+                <option value="Chisme Bomba" class="bg-slate-900 text-emerald-300">💣 Chisme Bomba</option>
+                <option value="Parejas y Dramas" class="bg-slate-900 text-emerald-300">💔 Parejas y Dramas</option>
+                <option value="Trabajo o Estudio" class="bg-slate-900 text-emerald-300">💼 Trabajo / Estudio</option>
+                <option value="Secretos Inconfesables" class="bg-slate-900 text-emerald-300">🤫 Secretos Inconfesables</option>
+                <option value="Otro Veneno" class="bg-slate-900 text-emerald-300">🐍 Otro tipo de Veneno</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-emerald-500">
+                <i class="fa-solid fa-chevron-down text-xs"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Campo: Anécdota o Chisme -->
+        <div>
+          <div class="flex justify-between items-center mb-1.5">
+            <label for="mensaje" class="block text-xs font-bold text-emerald-300 uppercase tracking-wider">
+              Tu Chisme o Anécdota <span class="text-pink-400">*</span>
+            </label>
+            <span id="charCounter" class="text-[11px] text-slate-400 font-mono">0 / 2500</span>
+          </div>
+          <div class="relative">
+            <textarea 
+              id="mensaje" 
+              name="mensaje" 
+              rows="5" 
+              placeholder="Escribí acá todo el veneno... ¿Qué pasó? ¿Quiénes están involucrados? ¡Contalo con lujo de detalles!"
+              required
+              maxLength="2500"
+              class="glass-input w-full p-3.5 rounded-xl text-sm placeholder:text-slate-500 focus:outline-none resize-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Botón de Envío -->
+        <button 
+          type="submit" 
+          id="submitBtn"
+          class="btn-viper w-full py-3.5 px-6 rounded-xl font-extrabold text-sm sm:text-base text-white flex items-center justify-center gap-2 cursor-pointer border border-emerald-400/30 uppercase tracking-wider shadow-lg"
+        >
+          <span id="btnText">Soltar Veneno Anónimo</span>
+          <i id="btnIcon" class="fa-solid fa-paper-plane text-xs"></i>
+          
+          <!-- Indicator Spinner -->
+          <svg id="btnSpinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </button>
+
+      </form>
+
+      <!-- Banner de Estado (Éxito / Error) -->
+      <div id="statusMessage" class="hidden mt-5 p-4 rounded-xl text-sm flex items-start gap-3 border transition-all duration-300">
+        <i id="statusIcon" class="fa-solid text-lg mt-0.5"></i>
+        <div>
+          <h4 id="statusTitle" class="font-bold"></h4>
+          <p id="statusBody" class="text-xs mt-0.5 opacity-90"></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Garantías de Seguridad -->
+    <div class="mt-8 grid grid-cols-3 gap-2 text-center text-slate-400 text-xs">
+      <div class="flex flex-col items-center gap-1.5 p-2 rounded-xl bg-emerald-950/20 border border-emerald-500/10">
+        <i class="fa-solid fa-user-ninja text-emerald-400 text-base"></i>
+        <span>100% Anónimo</span>
+      </div>
+      <div class="flex flex-col items-center gap-1.5 p-2 rounded-xl bg-emerald-950/20 border border-emerald-500/10">
+        <i class="fa-solid fa-shield-halved text-purple-400 text-base"></i>
+        <span>Sin rastreo IP</span>
+      </div>
+      <div class="flex flex-col items-center gap-1.5 p-2 rounded-xl bg-emerald-950/20 border border-emerald-500/10">
+        <i class="fa-solid fa-bolt text-emerald-400 text-base"></i>
+        <span>Envío Directo</span>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="text-center text-slate-500 text-xs py-4">
+    Viboreando &copy; Formulario anónimo para libre expresión y anécdotas.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // =========================================================================
+      // CLAVE DE ACCESO WEB3FORMS
+      // Reemplaza 'TU_ACCESS_KEY_AQUI' con la clave recibida desde web3forms.com
+      // =========================================================================
+      const WEB3FORMS_ACCESS_KEY = "dad61ee3-cdcd-40fa-b8d9-90ee8bffd1c4";
+
+      const form = document.getElementById('viberForm');
+      const textarea = document.getElementById('mensaje');
+      const charCounter = document.getElementById('charCounter');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnIcon = document.getElementById('btnIcon');
+      const btnSpinner = document.getElementById('btnSpinner');
+      const statusMessage = document.getElementById('statusMessage');
+      const statusTitle = document.getElementById('statusTitle');
+      const statusBody = document.getElementById('statusBody');
+      const statusIcon = document.getElementById('statusIcon');
+
+      // Contador en tiempo real
+      textarea.addEventListener('input', () => {
+        const currentLength = textarea.value.length;
+        charCounter.textContent = `${currentLength} / 2500`;
+        
+        if (currentLength >= 2300) {
+          charCounter.classList.add('text-pink-400');
+          charCounter.classList.remove('text-slate-400');
+        } else {
+          charCounter.classList.remove('text-pink-400');
+          charCounter.classList.add('text-slate-400');
+        }
+      });
+
+      // Procesamiento de formulario sin recarga vía Fetch
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        statusMessage.classList.add('hidden');
+
+        if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "TU_ACCESS_KEY_AQUI") {
+          showStatus(false, 'Falta la Access Key', 'Reemplazá "TU_ACCESS_KEY_AQUI" en la constante del script con tu clave de Web3Forms.');
+          return;
+        }
+
+        setLoadingState(true);
+
+        try {
+          const formData = new FormData(form);
+          formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+
+          const aliasVal = formData.get('alias') || 'Víbora Anónima';
+          const catVal = formData.get('categoria') || 'Chisme';
+          
+          formData.append('subject', `🐍 [Viboreando - ${catVal}] Chisme de: ${aliasVal}`);
+
+          const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            showStatus(
+              true, 
+              '¡Veneno soltado con éxito! 🐍', 
+              'Tu chisme o anécdota fue enviada de forma 100% anónima a Viboreando.'
+            );
+            textarea.value = '';
+            document.getElementById('alias').value = '';
+            charCounter.textContent = '0 / 2500';
+          } else {
+            showStatus(
+              false, 
+              'Error al enviar el chisme', 
+              data.message || 'Ocurrió un inconveniente al procesar tu mensaje.'
+            );
+          }
+        } catch (error) {
+          showStatus(
+            false, 
+            'Sin conexión', 
+            'No se pudo conectar con el servidor. Verificá tu conexión a internet.'
+          );
+        } finally {
+          setLoadingState(false);
+        }
+      });
+
+      function setLoadingState(isLoading) {
+        if (isLoading) {
+          submitBtn.disabled = true;
+          submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+          btnText.textContent = 'Procesando veneno...';
+          btnIcon.classList.add('hidden');
+          btnSpinner.classList.remove('hidden');
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+          btnText.textContent = 'Soltar Veneno Anónimo';
+          btnIcon.classList.remove('hidden');
+          btnSpinner.classList.add('hidden');
+        }
+      }
+
+      function showStatus(isSuccess, title, message) {
+        statusMessage.classList.remove('hidden', 'bg-emerald-500/15', 'border-emerald-500/40', 'text-emerald-200', 'bg-rose-500/15', 'border-rose-500/40', 'text-rose-200');
+        
+        if (isSuccess) {
+          statusMessage.classList.add('bg-emerald-500/15', 'border-emerald-500/40', 'text-emerald-200');
+          statusIcon.className = 'fa-solid fa-circle-check text-lg text-emerald-400 mt-0.5';
+        } else {
+          statusMessage.classList.add('bg-rose-500/15', 'border-rose-500/40', 'text-rose-200');
+          statusIcon.className = 'fa-solid fa-circle-exclamation text-lg text-rose-400 mt-0.5';
+        }
+
+        statusTitle.textContent = title;
+        statusBody.textContent = message;
+      }
+    });
+  </script>
+
+</body>
+</html>
